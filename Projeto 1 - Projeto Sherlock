@@ -1,0 +1,73 @@
+/*Faça um programa que faça 5 perguntas para uma pessoa sobre um crime. As perguntas são:
+1.	"Telefonou para a vítima?"
+2.	"Esteve no local do crime?"
+3.	"Mora perto da vítima?"
+4.	"Devia para a vítima?"
+5.	"Já trabalhou com a vítima?" 
+
+O programa deve no final emitir uma classificação sobre a participação da pessoa no crime. 
+Se a pessoa responder positivamente a 2 questões ela deve ser classificada como "Suspeita", entre 3 e 4 como "Cúmplice" e 5 como "Assassino".
+Caso contrário, ele será classificado como "Inocente".*/
+
+console.log('Responda as 5 perguntas abaixo para a classificação de um crime, como suspeito, cúmplice ou assassino: ');
+console.log();
+
+let contSim = 0;
+let contNao = 0;
+
+
+let p1 = prompt("Telefonou para a vítima?(s - Sim / n - Não)").toLowerCase();
+let p2 = prompt("Esteve no local do crime?(s - Sim / n - Não)").toLowerCase();
+let p3 = prompt("Mora perto da vítima?(s - Sim / n - Não)").toLowerCase();
+let p4 = prompt("Devia para a vítima?(s - Sim / n - Não)").toLowerCase();
+let p5 = prompt("Já trabalhou com a vítima?(s - Sim / n - Não)").toLowerCase();
+
+if (p1==='s') {
+  contSim = contSim + 1;
+}else{
+  contNao = contNao + 1; 
+}
+
+if (p2==='s') {
+  contSim = contSim + 1;
+}else{
+  contNao = contNao + 1; 
+}
+
+if (p3==='s') {
+  contSim = contSim + 1;
+}else{
+  contNao = contNao + 1; 
+}
+
+if (p4==='s') {
+  contSim = contSim + 1;
+}else{
+  contNao = contNao + 1; 
+}
+
+if (p5==='s') {
+  contSim = contSim + 1;
+}else{
+  contNao = contNao + 1; 
+}
+
+if (contSim === 2){
+  console.log()
+  console.log(`Como você respondeu sim ${contSim} vezes, isso faz de você um supeito!`);
+}
+
+if ((contSim === 3) || (contSim === 4)) {
+  console.log()
+  console.log(`Como você respondeu sim ${contSim} vezes, isso faz de você um cúmplice!`);
+}
+
+if (contSim === 5) {
+  console.log()
+  console.log(`Como você respondeu sim ${contSim} vezes, isso faz de você o assassino!`);
+}
+
+if ((contNao === 4) || (contNao === 5)){
+  console.log()
+  console.log(`Pela quantidade de respostas negativas isso faz de você inocente`); 
+}
