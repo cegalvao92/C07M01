@@ -1,0 +1,152 @@
+/*Utilizando os conceitos aprendidos até estruturas de repetição, crie um programa que jogue pedra, papel e tesoura (Jokenpô) com você. O programa tem que:
+• Permitir que eu decida quantas rodadas iremos fazer;
+• Ler a minha escolha (Pedra, papel ou tesoura);
+• Decidir de forma aleatória a decisão do computador;
+• Mostrar quantas rodadas cada jogador ganhou;
+• Determinar quem foi o grande campeão de acordo com a quantidade de vitórias de cada um (computador e jogador);
+• Perguntar se o Jogador quer jogar novamente, se sim inicie volte a escolha de quantidade de rodadas, se não finalize o programa.
+Obs: O projeto deve ser feito individualmente e entregue até o final da aula 11.*/
+var jogar;
+var vitoriasU = 0;
+var vitoriasC = 0;
+var vencedor = 0;
+
+
+do {
+  console.log();
+  console.log('#### Escolha seu objeto pra jogar o JOKENPÔ! ####');
+  console.log();
+  
+
+  var contVitU = 0;
+  var contVitC = 0;
+
+  var contDerU = 0;
+  var contDerC = 0;
+
+  var rodadas = +prompt('Quantas rodadas deseja fazer? ');
+  console.clear();
+  for (i = 1; i < (rodadas+1); i++){
+    
+    console.log();
+    console.log(`#### Iniciando a ${i}º rodada `)
+
+
+    var escolha = +prompt('Digite 1 para pedra, 2 para papel e 3 para tesoura: ');
+    
+    var pc = Math.ceil(Math.random()*3);
+
+    console.log(`O pc escolheu: ${pc}`);
+    console.log();
+
+   
+    
+    if ((escolha === 1) && (pc === 1)) {
+      
+      console.log('Você e o pc escolheram ambos pedra, portanto deu empate!');
+      
+      console.log("--------------------------------------------------------------------");
+     
+    }
+    else if ((escolha === 1) && (pc === 2)) {
+      console.log('Você escolheu pedra, e o pc escolheu papel,portanto você perdeu!');
+      console.log("--------------------------------------------------------------------");
+      contDerU = contDerU + 1;
+      contVitC = contVitC + 1;
+
+      vitoriasC = contVitC;
+
+    }
+    else if ((escolha === 1) && (pc === 3)){
+      console.log('Você escolheu pedra, e o pc escolheu tesoura, portanto você ganhou!');
+      console.log("--------------------------------------------------------------------");
+      contVitU = contVitU + 1;
+      contDerC = contDerC + 1;
+
+      vitoriasU = contVitU;    
+    }
+    else if ((escolha === 2) && (pc === 1)){
+      console.log('Você escolheu papel, e o pc escolheu pedra, portanto você ganhou!');
+      console.log("--------------------------------------------------------------------");
+      contVitU = contVitU + 1;
+      contDerC = contDerC + 1;
+
+      vitoriasU = contVitU;
+    }
+    else if ((escolha === 2) && (pc === 2)){
+      console.log('Você e o pc escolheram ambos papel, portanto deu empate!');
+      console.log("--------------------------------------------------------------------");
+    }
+    else if ((escolha === 2) && (pc === 3)){
+      console.log('Você escolheu papel, e o pc escolheu tesoura, portanto você perdeu!');
+      console.log("--------------------------------------------------------------------");
+      contVitC = contVitC + 1;
+      contDerU = contDerU + 1;
+
+      vitoriasC = contVitC;
+    }
+    else if ((escolha === 3) && (pc === 1)){
+      console.log('Você escolheu tesoura, e o pc escolheu pedra, portanto você perdeu!');
+      console.log("--------------------------------------------------------------------");
+      contVitC = contVitC + 1;
+      contDerU = contDerU + 1;
+
+      vitoriasC = contVitC;
+    }
+    else if ((escolha === 3) && (pc === 2)){
+      console.log('Você escolheu tesoura, e o pc escolheu papel portanto você ganhou!');
+      console.log("--------------------------------------------------------------------");
+      contVitU = contVitU + 1;
+      contDerC = contDerC + 1;
+
+      vitoriasU = contVitU;
+    }
+    else {
+      console.log('Você e o pc escolheram ambos tesoura, portanto deu empate!');
+      console.log("--------------------------------------------------------------------");
+    }
+
+  }
+
+  console.log();
+  console.log();
+
+  if (contVitU > contVitC) {
+    console.log(`Você ${contVitU} X ${contVitC} Computador`);
+    console.log();
+    console.log(`O ganhador destas rodadas foi você com ${vitoriasU} vitórias! `);
+
+    vencedor = vencedor + vitoriasU;
+  } else if (contVitU === contVitC) {
+    console.log(`Você ${contVitU} X ${contVitC} Computador`);
+    console.log();
+    console.log(`As rodadas terminaram em empate, você e o computador terminaram com ${vitoriasU} vitória(s) cada! `)
+  }else{
+    console.log(`Você ${contVitU} X ${contVitC} Computador`);
+    console.log();
+    console.log(`O ganhador destas rodadas foi o computador com ${vitoriasC} vitórias! `);
+    vencedor = vencedor + vitoriasC;
+  }  
+
+  jogar = +prompt('Deseja jogar novamente? (Jogar - 0 / Sair - Qualquer outro numero)');
+  console.clear();
+
+}while(jogar == 0);
+
+
+if (contVitU > contVitC) {
+    console.log(`Você ${contVitU} X ${contVitC} Computador`);
+    console.log();
+    console.log(`O ganhador do jogo no final foi você com ${vencedor} vitórias! `)
+  } else if (contVitU === contVitC) {
+    console.log(`Você ${contVitU} X ${contVitC} Computador`);
+    console.log();
+    console.log(`O jogo terminou em empate, você e o computador terminaram com ${vitoriasU} vitória(s) cada! `);
+  }else{
+    console.log(`Você ${contVitU} X ${contVitC} Computador`);
+    console.log();
+    console.log(`O ganhador do jogo no final foi o computador com ${vencedor} vitórias! `);
+  }
+  
+console.log()
+console.log("Fim de Jogo")
