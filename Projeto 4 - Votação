@@ -1,0 +1,167 @@
+const prompt = require('prompt-sync')()
+/*PROJETO 4 - SIMULADOR DE VOTAÇÃO
+
+Este projeto é individual e deverá ser entregue até sexta 10/09 as 23:59.
+A ideia deste projeto é criar um programa que simule uma votação com todo o conteúdo visto no
+módulo até este momento.
+O programa tem que:
+● Receber votos até que o usuário diga que não tem mais ninguém para votar; (1,0 ponto)
+● Ter uma função chamada autorizaVoto(anoNascimento) retornando: "Negado`,
+"Opcional" ou "Obrigatório"; (2,0 pontos)
+● Ter uma função chamada votacao(autorizacao, voto) que valida e contabiliza o voto
+(número entre 1 e 5) ou retorna a mensagem: "Você não pode votar", caso o voto não
+possa ser contabilizado; (2,0 pontos)
+● Contabilizar os votos de acordo com os significados (3,0 pontos):
+● 1 = Candidato 1
+● 2 = Candidato 2
+● 3 = Candidato 3
+● 4 = Voto Nulo
+● 5 = Voto em Branco
+● Ter uma função chamada exibirResultados() que deve mostrar: (2,0 pontos)
+● - O total de votos para cada candidato
+● - O total de votos nulos
+● - O total de votos em branco
+● - Qual candidato venceu a votação*/
+
+var autorizacao, voto;
+var Voto;
+var anoNascimento;
+var cand1, cand2, cand3, votoB, votoN;
+var idade;
+var a = 0, b = 0, c = 0, d = 0, e = 0;
+
+
+
+function autorizaVoto(anoNascimento){
+    anoNascimento = +prompt("Qual seu ano de nascimento? ")
+
+    var year = new Date().getFullYear();
+    idade = year - anoNascimento;
+    var autorizacao; 
+
+    if (idade < 16) {
+        autorizacao = 'Negado';
+        return autorizacao;
+
+    }else if (idade >= 16 && idade < 18) {
+        autorizacao = 'Opcional';
+        return autorizacao;
+
+    }else{
+        autorizacao = 'Obrigatório';
+        return autorizacao;
+
+    }
+}
+
+
+function exibirResultados(){
+    console.log('### O total de votos para cada candidato e demais votos foram: ###');
+    console.log(`${a} votos para o candidato 1`)
+    console.log(`${b} votos para o candidato 2`)
+    console.log(`${c} votos para o candidato 3`)
+    console.log(`${d} votos nulos`)
+    console.log(`${e} votos em branco`)
+    console.log();
+
+    if (a > b > c) {
+        console.log(`Com ${a} votos o candidato 1 venceu a votação! `)
+    }else if(b > a > c){
+        console.log(`Com ${b} votos o candidato 2 venceu a votação! `)
+    }else if(c > a > b) {
+        console.log(`Com ${c} votos o candidato 3 venceu a votação! `)
+    }else{
+        console.log('A votação não teve ganhador!')
+    }
+}
+
+function votacao(Autorizacao, Voto) {    
+
+    if (Autorizacao === 'Negado') {
+        console.log(`Com ${idade} anos você ainda não pode votar!`)
+        
+    } else if(Autorizacao === 'Opcional'){
+        console.log(`Com ${idade} anos você já está apto a votar, porém não é obrigatório!`)
+        console.log();
+        
+        while(voto !== 0){
+            console.log("### Lista de Candidatos ###");
+            console.log()            
+                   
+            cand1 = +prompt("Votar no Candidato 1? (Digite 1 para votar ou 0 para pular)");            
+            cand2 = +prompt("Votar no Candidato 2? (Digite 2 ou 0 para pular)");            
+            cand3 = +prompt("Votar no Candidato 3? (Digite 3 ou 0 para pular)");            
+            votoN = +prompt("Votar Nulo? (Digite 4 ou 0 para pular)");            
+            votoB = +prompt("Votar em Branco? (Digite 5 ou 0 para pular)");           
+                                          
+            
+            if (cand1 === 1){
+                a++
+                    
+            }if (cand2 === 2){
+                b++
+                    
+            }if(cand3 === 3){
+                c++
+
+            }if(votoN === 4){
+                d++
+
+            }if(votoB === 5){
+                e++                
+            }
+
+            voto = +prompt('Deseja continuar votando? (Digite 0 para Sair)')
+            console.log();
+            
+        }
+        exibirResultados()        
+    }
+
+    else if(Autorizacao === 'Obrigatório'){
+        console.log(`Com ${idade} anos você é obrigado a votar!`)
+        console.log();
+        
+        while(voto !== 0){
+            console.log("### Lista de Candidatos ###");
+            console.log()        
+        
+            cand1 = +prompt("Votar no Candidato 1? (Digite 1 para votar ou 0 para pular)");
+            cand2 = +prompt("Votar no Candidato 2? (Digite 2 para votar ou 0 para pular)");
+            cand3 = +prompt("Votar no Candidato 3? (Digite 3 para votar ou 0 para pular)");
+            votoN = +prompt("Votar Nulo? (Digite 4 para votar ou 0 para pular)");
+            votoB = +prompt("Votar em Branco? (Digite 5 para votar ou 0 para pular)");                                         
+            
+            if (cand1 === 1){
+                a++
+                    
+            }if (cand2 === 2){
+                b++
+                    
+            }if(cand3 === 3){
+                c++
+
+            }if(votoN === 4){
+                d++
+
+            }if(votoB === 5){
+                e++                
+            }
+
+            voto = +prompt('Deseja continuar votando? (Digite 0 para Sair)')
+            console.log();
+            
+        }
+        exibirResultados()    
+    }
+}
+
+console.log("### Bem vindo ao Simulador de Votação!!! ###");
+console.log()
+
+console.log("Antes vamos verficar sua idade e ver se está apto a votar! ")
+var Autorizacao = autorizaVoto(anoNascimento);
+console.log(`Situação: ${Autorizacao}`)
+console.log()
+votacao(Autorizacao, Voto)
+console.log();
