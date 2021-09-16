@@ -1,0 +1,572 @@
+/*Escopo do projeto
+Em grupos de 3 pessoas, crie um jogo de ficção interativa que simule a rotina
+diária de um personagem. Você pode escolher entre rotinas matinais, rotinas de
+trabalho, rotinas de estudos, entre outras. A ideia do jogo é que o jogador faça
+as escolhas para o seu personagem e o conduza durante o seu dia.
+Cada escolha irá gerar uma consequência diferente para o seu personagem.
+Você será responsável por determinar o inicio e término do dia do seu
+personagem, além de avançar o tempo a cada escolha.
+É obrigatório o uso de orientação a objetos e herança, funções, laços (while/for)
+e condicionais (if, elif, else), ou seja todo o conteúdo visto durante o módulo.
+Use toda sua criatividade para desenvolver uma história interessante e seja bem
+específico com relação as escolhas que precisam ser feitas, para que seu jogo
+seja divertido!
+Os codelabs 19 (09/09) e 22 (14/09) serão destinados para desenvolvimento do
+projeto.
+O jogo deverá ser entregue pelos grupos no dia 15/09/2021 até as 18:59, ou seja,
+antes do inicio da aula. As apresentações dos jogos ocorrerão nos dias 15/09 e
+16/09, em horário de aula.*/
+
+const prompt = require('prompt-sync')();
+function sleep(n) {
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, n);
+}
+
+class Relogio{
+    constructor(){
+        this.hora = 10,
+        this.minuto = 30,
+        this.dia = 1
+    }
+
+    avancaHora(minuto){
+        this.minuto += minuto
+            while(this.minuto >= 60){
+                this.minuto -= 60;
+                this.hora += 1;               
+
+            }
+        
+    }
+
+    mostrarHora(){
+        console.log(`Dia ${this.dia} `)
+        console.log()      
+        console.log(`Horário: ${this.hora}:${this.minuto}`);
+    }
+
+    horario(){
+        return this.hora
+    }
+
+    zerarDia(){
+        this.dia += 1,
+        this.hora = 10,
+        this.minuto = 30       
+
+        
+    }
+       
+}
+
+class Pessoa{
+    constructor(nome, idade, peso, genero){
+        this.nome = nome,
+        this.idade = idade,
+        this.peso = peso,
+        this.genero = genero
+    }
+
+    
+}
+
+class Bluemer extends Pessoa{
+    constructor(nome, idade, peso, genero, aprendizado, estresse, saude, carteira){
+        super(nome, idade, peso, genero);
+
+        this.aprendizado = 0,
+        this.estresse = 0,
+        this.saude = 100,
+        this.carteira = 0      
+        
+    }
+
+   
+    
+    estudar() {
+        console.log('a - JavaScript \nb - Python \nc - Html e Css');
+        console.log();
+                
+        let a = 'JavaScript', b = 'Python', c = 'Html e Css';
+        
+        let linguagem = prompt('Digite a letra da linguagem acima que deseja estudar? ');
+            if (linguagem === 'a'){
+                console.log(`Estudando ${a}......`)
+                this.aprendizado += 1
+                this.estresse += 4
+                this.saude -= 10
+            }else if(linguagem === 'b'){
+                console.log(`Estudando ${b}......`)
+                this.aprendizado += 1
+                this.estresse += 4
+                this.saude -= 10
+            }else if(linguagem === 'c'){
+                console.log(`Estudando ${c}......`)
+                this.aprendizado += 1
+                this.estresse += 4
+                this.saude -= 10
+            }
+
+            if (this.saude <= 50 || this.estresse >= 50){
+                console.log(`Sua saúde esta muito abaixo do normal: ${this.saude} e você está muito estressado: ${this.estresse}`);
+                console.log()
+                console.log("Você não pode continuar estudando!")
+                console.log()
+                console.log("Volte ao menu principal e escolha passear ou praticar exercícios para recuperar ambos!")
+        
+            }
+        
+    }
+
+    fazerBico(){
+        
+        let bico = +prompt("Qual bico deseja fazer? (1 - Trabalhar na Pizzaria / 2 - Manutenção PC ou Notebook / 3 - Dirigir para um cliente de classe alta)")
+        if (bico === 1){
+            console.log('Trabalhando na pizzaria, sua carteira foi atualizada: ')
+            this.carteira += 300
+            this.estresse += 4
+            console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+            console.log()
+        }else if(bico === 2){
+            console.log('Trabalhando com manutenção, sua carteira foi atualizada: ')
+            this.carteira += 500
+            this.estresse += 6
+            console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+            console.log()
+            
+
+        }else if(bico === 3){
+            console.log('Trabalhando como motorista, sua carteira foi atualizada: ')
+            this.carteira += 700
+            this.estresse += 8
+            console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+            console.log()            
+        }
+
+    }
+         
+
+    passear(){
+        
+        console.log('a - Shopping \nb - Praça \nc - Praia');
+        console.log()        
+        let local = prompt('Digite a letra do local que deseja sair para passear? ');
+        if (local === 'a'){
+        let comprar = +prompt('Você deseja fazer compras? (1 - Sim ou 2 - Não)')
+        console.log(`Saldo na carteira: R$ ${this.carteira} `)
+            do{
+                if(comprar === 1 && this.carteira < 30){
+                    console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+    
+                }
+                else{
+                    console.log('Opções de compra:\n1 - Alimentação: R$ 50 \n2 - Vestimenta: R$ 200 \n3 - Cinema: R$ 30 ');
+                    let op = +prompt("Digite sua opção de gastos: ");
+                    console.log()
+                    if (op == 1){
+                        if(this.carteira < 50){
+                            console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+            
+                        }
+                        else {                        
+                        this.carteira -= 50
+                        console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                        console.log()
+                        }
+                    }else if(op == 2){
+                        if(this.carteira < 200){
+                            console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+            
+                        }
+                        else {                        
+                        this.carteira -= 200
+                        console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                        console.log()
+                        }
+                    }else{
+                        if(this.carteira < 30){
+                            console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+            
+                        }
+                        else {                        
+                        this.carteira -= 30
+                        console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                        console.log()
+                        }
+                    }               
+    
+                }
+                comprar = +prompt('Deseja continuar comprando? (1 - Sim ou 2 - Não)')
+                
+
+            }while(comprar == 1)
+            
+
+        }else if(local === 'b'){
+            console.log()
+            let cia = prompt("Deseja passear sozinho ou com os amigos? (0 - sozinho/ 1 - amigos) ")
+                if (cia == 0){
+                    console.log(`Como você preferiu passear sozinho ou não tem amigos, seu estresse teve um aumento de: ${this.estresse += 2}%`)
+                    
+                }else{
+                    console.log(`Como você escolheu passear com os amigos, seu estresse diminuiu: ${this.estresse -= 6}% `)
+                    
+                }
+
+                if (this.estresse <= 0){
+                    console.log("Como seu estresse já está zerado, não ouve alteração!");
+                    this.estresse = 0;
+                }
+            let comprar = +prompt('Você deseja comprar algo na praça? (1 - Sim ou 2 - Não)')
+            console.log(`Saldo na carteira: R$ ${this.carteira} `)
+            
+            do{
+                if(comprar === 1 && this.carteira < 3){
+                    console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+    
+                }
+    
+    
+                else{
+                    console.log('Opções de compra:\n1 - Água de coco: R$ 5 \n2 - Cerveja: R$ 8 \n3 - Água: R$ 3 ');
+                    let op = +prompt("Digite sua opção de gastos: ");
+                    console.log()
+                    if (op == 1){
+                        if(this.carteira < 5){
+                            console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+                            
+                        }else{
+                            this.carteira -= 5
+                            console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                            console.log()
+    
+                        }
+                        
+                    }else if(op == 2){
+                        if(this.carteira < 8){
+                            console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+                            
+                        }else{
+                            this.carteira -= 8
+                            console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                            console.log()
+                        }
+                        
+                    }else{
+                        if(this.carteira < 3){
+                            console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+                            
+                        }else{
+                            this.carteira -= 3
+                            console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                            console.log()
+    
+                        }
+                        
+                    }
+    
+                }
+                comprar = +prompt('Deseja continuar comprando? (1 - Sim ou 2 - Não)')
+
+            }while(comprar == 1)
+            
+
+            
+
+            
+        }else{
+            console.log()
+            let cia = prompt("Deseja passear sozinho ou com os amigos? (0 - sozinho/ 1 - amigos) ")
+                if (cia == 0){
+                    console.log(`Como você preferiu passear sozinho ou não tem amigos, seu estresse teve um aumento de: ${this.estresse += 2}%`)
+                    
+                }else{
+                    console.log(`Como você escolheu passear com os amigos, seu estresse diminuiu: ${this.estresse -= 6}% `)
+                    console.log()
+                    let comprar = +prompt('Você deseja comprar algo na praia pra você e seus amigos? (1 - Sim ou 2 - Não)')
+                    console.log(`Saldo na carteira: R$ ${this.carteira} `)
+                    console.log()
+
+                   do{
+                    if(comprar === 1 && this.carteira < 50){
+                        console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+        
+                    }
+
+                    else{
+                        console.log("Como você está com amigos e vocês comem bastante quando estão juntos, o valor dos seus gastos teve um aumento! ")
+                        console.log()
+                        console.log('Opções de compra:\n1 - Peixe: R$ 80 \n2 - Carne: R$ 60 \n3 - Frango: R$ 50 ');
+                        let op = +prompt("Digite sua opção de gastos: ");
+                        console.log()
+                        if (op == 1){
+                            if(this.carteira < 80){
+                                console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+
+                            }
+                            else{
+                                this.carteira -= 80
+                                console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                                console.log()
+
+                            }
+                            
+                        }else if(op == 2){
+                            if(this.carteira < 60){
+                                console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+
+                            }
+                            else{
+                                this.carteira -= 60
+                                console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                                console.log()
+
+                            }
+                            
+                        }else{
+                            if(this.carteira < 50){
+                                console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+
+                            }
+                            else{
+                                this.carteira -= 50
+                                console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                                console.log()
+
+                            }
+                            
+                        }
+
+                    }
+                    comprar = +prompt('Deseja continuar comprando? (1 - Sim ou 2 - Não)')
+                   }while(comprar == 1)
+                    
+
+                    
+                }
+
+                if (this.estresse <= 0){
+                    console.log("Como seu estresse já está zerado, não ouve alteração!");
+                    this.estresse = 0;
+                    console.log()
+                }
+
+            let comprar = +prompt('Você deseja comprar algo na praia? (1 - Sim ou 2 - Não)')
+            console.log(`Saldo na carteira: R$ ${this.carteira} `)
+
+            do{
+                if(comprar === 1 && this.carteira < 30){
+                    console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+    
+                }
+    
+                else{
+                    console.log('Opções de compra:\n1 - Peixe: R$ 60 \n2 - Carne: R$ 40 \n3 - Frango: R$ 30 ');
+                    let op = +prompt("Digite sua opção de gastos: ");
+                    console.log()
+                            if (op == 1){
+                                if(this.carteira < 60){
+                                    console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+    
+                                }
+                                else{
+                                    this.carteira -= 60
+                                    console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                                    console.log()
+    
+                                }
+                                
+                            }else if(op == 2){
+                                if(this.carteira < 40){
+                                    console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+    
+                                }
+                                else{
+                                    this.carteira -= 40
+                                    console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                                    console.log()
+    
+                                }
+                                
+                            }else{
+                                if(this.carteira < 30){
+                                    console.log(`Você não pode realizar compras, saldo insuficiente: ${this.carteira} (Escolha a opção FazerBico para ganhar dinheiro)`)
+    
+                                }
+                                else{
+                                    this.carteira -= 30
+                                    console.log(`Seu novo saldo na carteira é: R$ ${this.carteira}`);
+                                    console.log()
+    
+                                }
+                                
+                            }
+                }
+                comprar = +prompt('Deseja continuar comprando? (1 - Sim ou 2 - Não)')
+            }while(comprar == 1)
+
+            
+
+        }
+    }
+
+    praticarExercicio(){
+        console.log('a - Academia \nb - Bicicleta \nc - Corrida')
+        let a = 'Academia', b = 'Bicicleta', c = 'Corrida';
+        let pergunta = prompt('Qual exercicio deseja praticar? ')                      
+        if (pergunta === 'a'){
+            console.log()
+            let cia = prompt("Deseja ir pra academia sozinho ou com os amigos? (0 - sozinho/ 1 - amigos) ")
+                if (cia == 0){
+                    console.log(`Como você preferiu ir sozinho ou não tem amigos, seu estresse teve um aumento de: ${this.estresse += 2}%`)
+                    this.saude += 10
+                    console.log()
+                    
+                }else if(cia == 1){
+                    console.log(`Como você escolheu ir com os amigos, seu estresse diminuiu: ${this.estresse -= 6}% `)
+                    this.saude += 10
+                    console.log()
+                    
+                }
+
+                if (this.estresse <= 0){
+                    console.log("Como seu estresse já está zerado, não ouve alteração!");
+                    this.estresse = 0;
+                    console.log()
+                }
+                if(this.saude >= 100){
+                    console.log("Como sua saúde já está no máximo, não ouve alteração!");
+                    this.saude = 100;
+                    console.log()
+
+                }
+
+                
+        }else if(pergunta === 'b'){
+            console.log()
+            let cia = prompt("Deseja andar de bicicleta sozinho ou com os amigos? (0 - sozinho/ 1 - amigos) ")
+                if (cia == 0){
+                    console.log(`Como você preferiu ir sozinho ou não tem amigos, seu estresse teve um aumento de: ${this.estresse += 2}%`)
+                    this.saude += 10
+                    console.log()
+                    
+                }else if(cia == 1){
+                    console.log(`Como você escolheu ir com os amigos, seu estresse diminuiu: ${this.estresse -= 6}% `)
+                    this.saude += 10
+                    console.log()
+                    
+                }
+
+                if (this.estresse <= 0){
+                    console.log("Como seu estresse já está zerado, não ouve alteração!");
+                    this.estresse = 0;
+                    console.log()
+                }
+                if(this.saude >= 100){
+                    console.log("Como sua saúde já está no máximo, não ouve alteração!");
+                    this.saude = 100;
+                    console.log()
+
+                }
+        }else if(pergunta === 'c'){
+            console.log()
+            let cia = prompt("Deseja correr sozinho ou com os amigos? (0 - sozinho/ 1 - amigos) ")
+                if (cia == 0){
+                    console.log(`Como você preferiu ir sozinho ou não tem amigos, seu estresse teve um aumento de: ${this.estresse += 2}%`)
+                    this.saude += 10
+                    console.log()
+                    
+                }else{
+                    console.log(`Como você escolheu ir com os amigos, seu estresse diminuiu: ${this.estresse -= 6}% `)
+                    this.saude += 10
+                    console.log()
+                    
+                }
+
+                if (this.estresse <= 0){
+                    console.log("Como seu estresse já está zerado, não ouve alteração!");
+                    this.estresse = 0;
+                    console.log()
+                }
+                if(this.saude >= 100){
+                    console.log("Como sua saúde já está no máximo, não ouve alteração!");
+                    this.saude = 100;
+                    console.log()
+
+                }
+        }
+
+    }
+
+    dadosBluemer(){
+        console.log(` Dados Emocionais:\n Aprendizado: ${this.aprendizado}\n Estresse: ${this.estresse}\n Saúde: ${this.saude}  `)      
+            
+            
+
+        
+
+    }
+}
+
+        
+var relogio = new Relogio()
+var bluemer = new Bluemer()
+
+
+        console.log('### Seja Bem vindo a Rotina de um Bluemer! ###')
+
+var dias = 0;        
+while(dias < 7){
+
+    
+        
+    while(relogio.horario() < 23){
+        
+        relogio.mostrarHora()
+        console.log('1 - Estudar programação \n2 - Sair para passear \n3 - Praticar Exercícios \n4 - Fazer Bico ')    
+        var opc = +prompt('O que deseja fazer? ')
+        console.log()  
+
+        if (opc == 1){
+            console.log()
+            bluemer.estudar()
+            relogio.avancaHora(240)
+            console.log(`Após 4 horas de estudo, agora são: `)
+            console.log()
+            bluemer.dadosBluemer()
+            
+        }else if(opc == 2){
+            bluemer.passear()
+            relogio.avancaHora(120)
+            console.log()
+            bluemer.dadosBluemer()
+        }else if(opc == 3){
+            bluemer.praticarExercicio()
+            relogio.avancaHora(120)
+            console.log()
+            bluemer.dadosBluemer()
+        }else if(opc == 4){
+            bluemer.fazerBico()
+            relogio.avancaHora(360)
+            console.log()
+            relogio.mostrarHora()
+        }
+        var x = prompt('Deseja descansar? (s - sim ou n - não)(Descanso de 1 hora) ')
+        if(x == 's'){
+            relogio.avancaHora(60)
+            this.estresse -= 5
+            bluemer.dadosBluemer()
+        }
+        console.clear()
+
+    }
+    console.log("Você ficou muito cansado e tem que dormir!")
+    console.log()
+    sleep(5000)
+    relogio.zerarDia()
+    dias++
+}        
+        
+
+
+
